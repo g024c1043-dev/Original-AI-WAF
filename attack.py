@@ -1,6 +1,6 @@
 import requests
 import json
-import aicode
+import red_ai
 
 #メイン関数
 def main():
@@ -21,14 +21,9 @@ def main():
 #攻撃用ペイロード
 def payload_p():
     url = "http://localhost:3000/rest/user/login"  # 攻撃対象のURL
-    ai_reply = aicode.ai_reply
-    #生成されたペイロードが空ではないなら攻撃
-    if ai_reply:
-        email_payloads = json.loads(ai_reply) #別ファイルaicode.pyからAIで生成したペイロード読み込み
-        pass_payloads = "aaa"
-    else:
-        print("エラー:ペイロードが空です！")
-
+    ai_reply = red_ai.payload_ganerate() #別ファイルaicode.pyからAIで生成したペイロード読み込み
+    email_payloads = ai_reply 
+    pass_payloads = "aaa"
     return url,email_payloads,pass_payloads
 #用意したペイロードから実際に攻撃
 def attack_p(url,email_pay,pass_pay):
