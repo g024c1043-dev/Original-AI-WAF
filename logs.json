@@ -1,17 +1,32 @@
 [
     {
         "ペイロード": "test@example.com",
+        "WAF": "Allowed",
         "ステータスコード": 401,
         "攻撃結果": false
     },
     {
-        "ペイロード": "valid@domain.org",
+        "ペイロード": "user@domain.com",
+        "WAF": "Allowed",
         "ステータスコード": 401,
         "攻撃結果": false
     },
     {
         "ペイロード": "' OR 1=1--",
-        "ステータスコード": 200,
-        "攻撃結果": true
+        "WAF": "Blocked",
+        "ステータスコード": null,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' UNION SELECT 1, 'admin@juice-sh.op', 'password'--",
+        "WAF": "Allowed",
+        "ステータスコード": 500,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' AND (SELECT RAISE(ABORT, 'SQLiError'))--",
+        "WAF": "Allowed",
+        "ステータスコード": 500,
+        "攻撃結果": false
     }
 ]

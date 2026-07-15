@@ -8,13 +8,17 @@ load_dotenv()
 
 with open("logs.json","r",encoding="utf-8") as f:
         log_data = json.load(f)
-
-def analysis_log(logs):
+        
+def get_client():
     client = OpenAI(
         api_key=os.environ["AI_API_KEY"],
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
         timeout=120.0
     )
+    return client
+
+def analysis_log(logs):
+    client = get_client()
     response = client.chat.completions.create(
 
         model="gemini-2.5-flash",    
@@ -41,7 +45,9 @@ def analysis_log(logs):
 
     advice = response.choices[0].message.content
     return advice
-
+# def security_rules():
+#       client = get_client()
+      
 result = analysis_log(log_data)
 if result:
       print("分析結果:",result)
