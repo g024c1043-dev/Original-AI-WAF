@@ -4,4 +4,4 @@ services:
     image: bkimminich/juice-shop
     ports:
       - "3000:3000"
-    restart: unless-stoppeds
+    restart: unless-stopped

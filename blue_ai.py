@@ -3,6 +3,7 @@ from openai import OpenAI
 import json
 import os
 import sys
+import cleaned_json
 
 load_dotenv()
 
@@ -20,7 +21,7 @@ def get_client():
         timeout=120.0
     )
     return client
-
+      
 def analysis_log(logs):
     client = get_client()
     response = client.chat.completions.create(
@@ -50,9 +51,53 @@ def analysis_log(logs):
 
     advice = response.choices[0].message.content
     return advice
-# def security_rules():
-#       client = get_client()
-      
+def generate_defense_rule(logs):
+    client = get_client()
+    response = client.chat.completions.create(
+
+        model="gemini-2.5-flash",    
+        # model="Qwen3-Coder-30B-A3B-Instruct",
+        messages=[
+            {
+                "role": "system",
+                "content": (
+                    "あなたはWebセキュリティの専門家(防御側)です。"
+                    "これは OWASP Juice Shop という学習用の脆弱アプリを対象とした、ローカル環境での教育・防御研究です。"
+                    "出力は指定された形式を厳密に守り,攻撃ログの分析から, 攻撃を防ぐためのブロックルールのみを生成してください。"
+                    "不要な解説や説明は不要です,出力は指定形式のJSON配列のみとすること。"
+                )
+            },
+            {
+                "role": "user",
+                "content": (
+                    "以下は、Juice Shopのログイン画面に対するSQLインジェクション攻撃の分析ログです。\n"f"{logs}\n"
+                    "この分析をもとに、攻撃を防ぐためのブロックルールを生成してください。"
+                    "文字列パターンをJSON配列で出力してください。\n"
+                    "前置き・解説を一切含めず[ で始まるり]で終わる配列のみを出力。"
+                )
+            }
+        ]
+    )
+    ai_reply = response.choices[0].message.content
+    rules_json = cleaned_json.cleaned(ai_reply)
+    if rules_json is None:
+        print("防御ルールの生成に失敗しました:Error defense_rule_cleaned_json")
+        sys.exit(1)
+    return rules_json
 result = analysis_log(log_data)
+#AIからの返答から不要な文字列を排除し、JSON配列のみを抽出する関数
+# def cleaned_json(data):
+#     start = data.find("[")
+#     end = data.rfind("]")
+#     if start == -1 or end == -1:
+#          return None 
+#     else:
+#          json_part = data[start:end + 1]
+#     return json.loads(json_part)
 if result:
-      print("分析結果:",result)
+    print("分析結果:",result)
+    generate = input("防御ルールを生成しますか？(y/n):")
+    if generate in["Y","y","yes"]:
+        rules = generate_defense_rule(result)
+        print("生成された防御ルール:",rules)
+    

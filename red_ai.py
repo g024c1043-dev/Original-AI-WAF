@@ -3,6 +3,7 @@ from openai import OpenAI
 import json
 import os
 import sys
+import cleaned_json
 
 load_dotenv()
 
@@ -44,15 +45,20 @@ def payload_ganerate():
     )
     #生成されたAIからの返事を受け取り、文字列をpythonデータに変換し変数に格納する
     ai_reply = response.choices[0].message.content
-    if not ai_reply:
-        print("AIが解答できなかっためシステムを中止します:Error Empty Value")
+    rules_json = cleaned_json.cleaned(ai_reply)
+    if rules_json is None:
+        print("防御ルールの生成に失敗しました:Error defense_rule_cleaned_json")
         sys.exit(1)
-    try:
-         reply_json = json.loads(ai_reply)
-    except json.JSONDecodeError:
-        print("AIが解答できなかったためシステムを中止します:Error JSONDecodeError")
-        sys.exit(1)
-    return reply_json
+    return rules_json
+    # if not ai_reply:
+    #     print("AIが解答できなかっためシステムを中止します:Error Empty Value")
+    #     sys.exit(1)
+    # try:
+    #      reply_json = json.loads(ai_reply)
+    # except json.JSONDecodeError:
+    #     print("AIが解答できなかったためシステムを中止します:Error JSONDecodeError")
+    #     sys.exit(1)
+    # return reply_json
     # return ai_reply
 
 if __name__ == "__main__":
