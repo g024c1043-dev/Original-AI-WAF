@@ -6,25 +6,25 @@
         "攻撃結果": false
     },
     {
-        "ペイロード": "user@domain.com",
+        "ペイロード": "nonexistent@juice-sh.op",
         "WAF": "Allowed",
         "ステータスコード": 401,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' OR 1=1--",
+        "ペイロード": "' OR 1=1 --",
         "WAF": "Blocked",
         "ステータスコード": null,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' UNION SELECT 1, 'admin@juice-sh.op', 'password'--",
+        "ペイロード": "' OR 'a'='a",
         "WAF": "Allowed",
-        "ステータスコード": 500,
+        "ステータスコード": 401,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' AND (SELECT RAISE(ABORT, 'SQLiError'))--",
+        "ペイロード": "' UNION SELECT null,null,null --",
         "WAF": "Allowed",
         "ステータスコード": 500,
         "攻撃結果": false

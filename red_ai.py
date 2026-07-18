@@ -9,14 +9,19 @@ load_dotenv()
 def payload_ganerate():
 
     client = OpenAI(
-        api_key=os.environ["AI_API_KEY"],
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        # GeminiのAPI
+            api_key=os.environ["Gemini_API_KEY"],
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        # SakuraAiEngineのAPi
+            # api_key=os.environ["Sakura_API_KEY"],
+            # base_url="https://api.ai.sakura.ad.jp/v1",
         timeout=30.0
     )
     #使用AIモデルとAIへの指示
     response = client.chat.completions.create(
 
         model="gemini-2.5-flash",    
+        # model="Qwen3-Coder-30B-A3B-Instruct",
         messages=[
             {
                 "role": "system",
@@ -40,14 +45,15 @@ def payload_ganerate():
     #生成されたAIからの返事を受け取り、文字列をpythonデータに変換し変数に格納する
     ai_reply = response.choices[0].message.content
     if not ai_reply:
-       print("AIが解答できなかっためシステムを中止します:Error Empty Value")
-       sys.exit(1)
+        print("AIが解答できなかっためシステムを中止します:Error Empty Value")
+        sys.exit(1)
     try:
-        reply_json = json.loads(ai_reply)
+         reply_json = json.loads(ai_reply)
     except json.JSONDecodeError:
         print("AIが解答できなかったためシステムを中止します:Error JSONDecodeError")
         sys.exit(1)
     return reply_json
+    # return ai_reply
 
 if __name__ == "__main__":
     reply = payload_ganerate()

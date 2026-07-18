@@ -11,8 +11,12 @@ with open("logs.json","r",encoding="utf-8") as f:
         
 def get_client():
     client = OpenAI(
-        api_key=os.environ["AI_API_KEY"],
-        base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        # GeminiのAPI
+            api_key=os.environ["Gemini_API_KEY"],
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+        # SakuraAiEngineのAPi
+            # api_key=os.environ["Sakura_API_KEY"],
+            # base_url="https://api.ai.sakura.ad.jp/v1",
         timeout=120.0
     )
     return client
@@ -22,6 +26,7 @@ def analysis_log(logs):
     response = client.chat.completions.create(
 
         model="gemini-2.5-flash",    
+        # model="Qwen3-Coder-30B-A3B-Instruct",
         messages=[
             {
                 "role": "system",
