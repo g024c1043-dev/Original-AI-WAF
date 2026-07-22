@@ -6,7 +6,7 @@
         "攻撃結果": false
     },
     {
-        "ペイロード": "user@invalid.org",
+        "ペイロード": "user@juice-shop.com",
         "WAF": "Allowed",
         "ステータスコード": 401,
         "攻撃結果": false
@@ -18,15 +18,15 @@
         "攻撃結果": false
     },
     {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200,
-        "攻撃結果": true
+        "ペイロード": "' OR 1=1 LIMIT 1 --",
+        "WAF": "Blocked",
+        "ステータスコード": null,
+        "攻撃結果": false
     },
     {
-        "ペイロード": "' OR 'a'='a' --",
-        "WAF": "Allowed",
-        "ステータスコード": 200,
-        "攻撃結果": true
+        "ペイロード": "' UNION SELECT NULL, 'admin@example.com', 'password', 'admin' --",
+        "WAF": "Blocked",
+        "ステータスコード": null,
+        "攻撃結果": false
     }
 ]

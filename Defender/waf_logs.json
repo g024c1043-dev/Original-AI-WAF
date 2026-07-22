@@ -1,0 +1,32 @@
+[
+    {
+        "ペイロード": "test@example.com",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "user@juice-shop.com",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' OR 1=1 --",
+        "WAF": "Blocked",
+        "ステータスコード": null,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' OR 1=1 LIMIT 1 --",
+        "WAF": "Blocked",
+        "ステータスコード": null,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' UNION SELECT NULL, 'admin@example.com', 'password', 'admin' --",
+        "WAF": "Blocked",
+        "ステータスコード": null,
+        "攻撃結果": false
+    }
+]

@@ -47,7 +47,7 @@ def payload_ganerate():
     ai_reply = response.choices[0].message.content
     rules_json = cleaned_json.cleaned(ai_reply)
     if rules_json is None:
-        print("防御ルールの生成に失敗しました:Error defense_rule_cleaned_json")
+        print("攻撃ルールの作成に失敗しました:Error defense_rule_cleaned_json")
         sys.exit(1)
     return rules_json
     # if not ai_reply:

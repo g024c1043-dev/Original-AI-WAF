@@ -7,7 +7,7 @@ import cleaned_json
 
 load_dotenv()
 
-with open("logs.json","r",encoding="utf-8") as f:
+with open("./Defender/waf_logs.json","r",encoding="utf-8") as f:
         log_data = json.load(f)
         
 def get_client():
