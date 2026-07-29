@@ -1,0 +1,32 @@
+[
+    {
+        "ペイロード": "innocent@example.com",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "safemail@test.org",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' OR 1=1--",
+        "WAF": "Blocked",
+        "ステータスコード": 403,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' OR '1'='1'--",
+        "WAF": "Allowed",
+        "ステータスコード": 200,
+        "攻撃結果": true
+    },
+    {
+        "ペイロード": "admin@juice-sh.op'--",
+        "WAF": "Blocked",
+        "ステータスコード": 403,
+        "攻撃結果": false
+    }
+]

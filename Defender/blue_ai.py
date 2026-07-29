@@ -13,11 +13,11 @@ with open("./Defender/waf_logs.json","r",encoding="utf-8") as f:
 def get_client():
     client = OpenAI(
         # GeminiのAPI
-            api_key=os.environ["Gemini_API_KEY"],
-            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            # api_key=os.environ["Gemini_API_KEY"],
+            # base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
         # SakuraAiEngineのAPi
-            # api_key=os.environ["Sakura_API_KEY"],
-            # base_url="https://api.ai.sakura.ad.jp/v1",
+            api_key=os.environ["Sakura_API_KEY"],
+            base_url="https://api.ai.sakura.ad.jp/v1",
         timeout=120.0
     )
     return client
@@ -26,8 +26,9 @@ def analysis_log(logs):
     client = get_client()
     response = client.chat.completions.create(
 
-        model="gemini-2.5-flash",    
+        # model="gemini-2.5-flash",    
         # model="Qwen3-Coder-30B-A3B-Instruct",
+        model="llm-jp-3.1-8x13b-instruct4",
         messages=[
             {
                 "role": "system",
@@ -55,8 +56,9 @@ def generate_defense_rule(logs):
     client = get_client()
     response = client.chat.completions.create(
 
-        model="gemini-2.5-flash",    
+        # model="gemini-2.5-flash",    
         # model="Qwen3-Coder-30B-A3B-Instruct",
+        model="llm-jp-3.1-8x13b-instruct4",
         messages=[
             {
                 "role": "system",
@@ -84,20 +86,3 @@ def generate_defense_rule(logs):
         print("防御ルールの生成に失敗しました:Error defense_rule_cleaned_json")
         sys.exit(1)
     return rules_json
-result = analysis_log(log_data)
-#AIからの返答から不要な文字列を排除し、JSON配列のみを抽出する関数
-# def cleaned_json(data):
-#     start = data.find("[")
-#     end = data.rfind("]")
-#     if start == -1 or end == -1:
-#          return None 
-#     else:
-#          json_part = data[start:end + 1]
-#     return json.loads(json_part)
-if result:
-    print("分析結果:",result)
-    generate = input("防御ルールを生成しますか？(y/n):")
-    if generate in["Y","y","yes"]:
-        rules = generate_defense_rule(result)
-        print("生成された防御ルール:",rules)
-    

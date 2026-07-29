@@ -1,11 +1,11 @@
 import requests
 import json
-import red_ai
-import challengeAPI
+from Attacker import red_ai
+# import challengeAPI
 
 #メイン関数
 def main():
-    atk_response,logs = payload_p()
+    logs = payload_p()
     for i in logs:
         print(f"攻撃ログ：{i}")
      # user_token,logs = attack_p(*payload) #payloadは複数の戻り値があるので*を使用
@@ -17,11 +17,11 @@ def main():
     #     else:
     #         print("処理を終了します")
 #攻撃用ペイロード
-    return atk_response
 def payload_p():
     logs = []
     url = "http://localhost:8000/rest/user/login"  # 攻撃対象のURL
     ai_reply = red_ai.payload_ganerate() #別ファイルaicode.pyからAIで生成したペイロード読み込み
+    print(f"生成したペイロード:{ai_reply}")
     email_payloads = ai_reply 
     pass_payloads = "aaa"
     for i in email_payloads:
@@ -38,7 +38,7 @@ def payload_p():
             }
             logs.append(recode)
             print("攻撃がブロックされました")
-        else:
+        elif response.status_code == 200:
             #WAFにブロックされず通過した場合ここで攻撃を記録
             recode = {
                 "ペイロード": i,
@@ -48,10 +48,30 @@ def payload_p():
             }
             logs.append(recode) #logs配列に入れる
             print("攻撃が成功しました")
+        elif response.status_code == 500:
+            #WAFにブロックされず通過した場合ここで攻撃を記録
+            recode = {
+                "ペイロード": i,
+                "WAF":"Allowed",
+                "ステータスコード": response.status_code,
+                "攻撃結果":True,
+            }
+            logs.append(recode) #logs配列に入れる
+            print("サーバーエラー")
+        else:
+            recode = {
+                "ペイロード": i,
+                "WAF":"Allowed",
+                "ステータスコード": response.status_code,
+                "攻撃結果":False,
+            }
+            logs.append(recode) #logs配列に入れる
+            print("WAFは通過したが攻撃は失敗")
     #攻撃ログをlogs.jsonファイルに書き込み
-    with open("attack_logs.json","w",encoding="utf-8") as f:
+    with open("./Attacker/attack_logs.json","w",encoding="utf-8") as f:
         json.dump(logs,f,ensure_ascii=False,indent=4)
-    return response,logs
+
+    return logs
     
 #攻撃判定とログへの記録
 # def judge(response):

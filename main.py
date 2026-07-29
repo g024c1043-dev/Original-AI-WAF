@@ -1,6 +1,4 @@
 from Attacker import attack
-from Defender import defender
-import waf
 
 def simulation():
     #attack.pyに攻撃とペイロードを生成させる

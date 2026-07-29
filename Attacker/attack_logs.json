@@ -12,21 +12,21 @@
         "攻撃結果": false
     },
     {
-        "ペイロード": "' OR 1=1 --",
+        "ペイロード": "' OR 1=1-- ",
         "WAF": "Blocked",
-        "ステータスコード": null,
+        "ステータスコード": 403,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' OR 1=1 LIMIT 1 --",
+        "ペイロード": "' OR 1=1 LIMIT 1-- ",
         "WAF": "Blocked",
-        "ステータスコード": null,
+        "ステータスコード": 403,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' UNION SELECT NULL, 'admin@example.com', 'password', 'admin' --",
-        "WAF": "Blocked",
-        "ステータスコード": null,
+        "ペイロード": "admin@juice-shop.com'-- ",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
         "攻撃結果": false
     }
 ]
