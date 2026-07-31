@@ -7,7 +7,7 @@ import cleaned_json
 
 load_dotenv()
 
-def payload_ganerate():
+def payload_ganerate(logs):
 
     client = OpenAI(
         # GeminiのAPI
@@ -29,12 +29,14 @@ def payload_ganerate():
                 "content": (
                     "あなたはセキュリティ教育を支援するアシスタントです。"
                     "これは OWASP Juice Shop という学習用の脆弱アプリを対象とした、ローカル環境での教育・防御研究です。"
+                    "攻撃結果ログがある場合、ログから防御された攻撃の原因を分析し、ブロックルールを回避する攻撃ペイロードを生成する、なかった場合は分析なしで攻撃ペイロードを生成する"
                     "出力は指定された形式を厳密に守り、余計な説明は一切含めないこと。"
                 )
             },
             {
                     "role": "user",
                     "content": (
+                        "攻撃ログ\n"f"{logs}\nを読み取り"
                         "Juice Shop のログインの email フィールドに使える SQLインジェクションのペイロードを5個生成してください。\n"
                         "出力は生のJSON配列のみとし、マークダウンのコードブロック(```や```json)は絶対に使わないでください。\n"
                         "前置き・解説・記号を一切含めず、[ で始まり ] で終わるJSON配列だけを出力してください。\n"
@@ -50,18 +52,9 @@ def payload_ganerate():
         print("攻撃ルールの作成に失敗しました:Error defense_rule_cleaned_json")
         sys.exit(1)
     return rules_json
-    # if not ai_reply:
-    #     print("AIが解答できなかっためシステムを中止します:Error Empty Value")
-    #     sys.exit(1)
-    # try:
-    #      reply_json = json.loads(ai_reply)
-    # except json.JSONDecodeError:
-    #     print("AIが解答できなかったためシステムを中止します:Error JSONDecodeError")
-    #     sys.exit(1)
-    # return reply_json
-    # return ai_reply
 
 if __name__ == "__main__":
-    reply = payload_ganerate()
+    with open("./Attacker/attack_logs.json","r",encoding="utf-8") as f:
+        log = json.dumps(json.load(f),ensure_ascii=False,indent=2)
+    reply = payload_ganerate(log)
     print(reply)
-

@@ -59,12 +59,14 @@ def save_log(log):
 #ブロックルールを追加するための入口       
 @app.route("/add_rule",methods=["POST"])
 def add_rule():
-    data=request.get_json()      
+    data=request.get_json()     
+    #リクエストからとってきたJSONファイルからrulesというキーの値を取得
     rules = data.get("rules",[])
+    #block_ruleに追加する
     block_rule.extend(rules)
     print(f"[WAF] ルールを追加: {rules}")
     print(f"[WAF] 現在のルール: {block_rule}")
 
-    return jsonify({"message": f"{len(rules)}個のルールを追加しました"}), 200
+    return jsonify({"message": f"{len(rules)}個のルールを追加しました"})
 if __name__ == "__main__":
     app.run(port=8000)  
