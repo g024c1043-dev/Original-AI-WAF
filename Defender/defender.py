@@ -28,8 +28,8 @@ def gene_blockrule():
         print(ai_ans)
     c = input("通信ログから防御ルールを生成しますか？(y/n):")
     if c in["Y","y","yes"]:
-        rules = blue_cloud_ai.generate_defense_rule(logs) #クラウドAIモデル
-        # rules = blue_local_ai.generate_defense_rule(logs) #ローカルAIモデル
+        # rules = blue_cloud_ai.generate_defense_rule(logs) #クラウドAIモデル
+        rules = blue_local_ai.generate_defense_rule(logs) #ローカルAIモデル
         print("生成された防御ルール:",rules)
         d = input("生成されたルールをWAFのブロックルールへ追加しますか?(y/n):")
         if d in["Y","y","yes"]:

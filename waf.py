@@ -2,48 +2,101 @@
 from flask import Flask,request,jsonify
 import requests
 import json
+import re
 
 app = Flask(__name__)
 block_rule = []
 JUICE_SHOP = "http://localhost:3000"
+
 @app.route("/rest/user/login",methods=["POST"])
 def waf_req():
-    #ブロックルールの生成
+    
     #JSON形式でattack.pyのリクエストを読み込み
     payload = request.get_json()
     #引数で渡されたペイロードからemailだけを摘出
     email = payload.get("email","")
-    #インジェクションのペイロードを防御AIに渡しブロックルール作成
-    
-    #ペイロードの中にブロックルールに該当するメールがあるか確認
-    for rule in block_rule:
-        if rule in email:
-            print(f"[WAF]Block:(ルール{rule})")
-            #ブロックされたペイロードも記録
+    score = 0
+    for rule in scoring_rules:
+        
+        if re.search(rule["pattern"], email,re.IGNORECASE):
+            score += rule["score"]
+    if score <= 40:
+
+        response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload)
+
+        if score <= 20:
             recode = {
-                "ペイロード":email,
-                "WAF":"Blocked",
-                "ステータスコード":403,
+                    "ペイロード":email,
+                    "スコア":score,
+                    "アラートレベル":"low-level",
+                    "WAF":"Allowed",
+                    "ステータスコード":response.status_code,
             }
             save_log(recode)
-            return jsonify({"error":"アクセス拒否"}),403
+                        
+        else:
+            recode = {
+                    "ペイロード":email,
+                    "スコア":score,
+                    "アラートレベル":"medium-level",
+                    "WAF":"Allowed",
+                    "ステータスコード":response.status_code,
+            }
+            save_log(recode)
+
+        try:
+            return jsonify(response.json()),response.status_code
+        except:
+            return response.text,response.status_code
+    else:
+        if score <= 80:
+            recode = {
+                    "ペイロード":email,
+                    "スコア":score,
+                    "アラートレベル":"high-level",
+                    "WAF":"Blocked",
+                    "ステータスコード":403,
+            }
+            save_log(recode)
+        else:
+            recode = {
+                    "ペイロード":email,
+                    "スコア":score,
+                    "アラートレベル":"WARNING",
+                    "WAF":"blocked",
+                    "ステータスコード":403,
+            }
+            save_log(recode)
+        return jsonify({"error":"アクセス拒否"}),403
+    # #ペイロードの中にブロックルールに該当するメールがあるか確認
+    # for rule in block_rule:
+    #     if rule in email:
+    #         print(f"[WAF]Block:(ルール{rule})")
+    #         #ブロックされたペイロードも記録
+    #         recode = {
+    #             "ペイロード":email,
+    #             "WAF":"Blocked",
+    #             "ステータスコード":403,
+    #         }
+    #         save_log(recode)
+    #         return jsonify({"error":"アクセス拒否"}),403
         
-    #WAFがブロックしなかったら通す
-    print("[WAF]Allowed")
-    #リクエスト転送
-    response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload)
-    # 防御用ログファイルに書き込み
-    recode = {
-        "ペイロード":email,
-        "WAF":"Allowed",
-        "ステータスコード":response.status_code,
-    }
-    save_log(recode)
-    #JuiceShopから帰ってきたレスポンスをflaskがわかる形式にしてHTTPレスポンスとして組み立て、クライアントに返す
-    try:
-        return jsonify(response.json()),response.status_code
-    except:
-        return response.text,response.status_code
+    # #WAFがブロックしなかったら通す
+    # print("[WAF]Allowed")
+    # #リクエスト転送
+    # response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload)
+    # # 防御用ログファイルに書き込み
+    # recode = {
+    #     "ペイロード":email,
+    #     "WAF":"Allowed",
+    #     "ステータスコード":response.status_code,
+    # }
+    # save_log(recode)
+    # #JuiceShopから帰ってきたレスポンスをflaskがわかる形式にしてHTTPレスポンスとして組み立て、クライアントに返す
+    # try:
+    #     return jsonify(response.json()),response.status_code
+    # except:
+    #     return response.text,response.status_code
 def save_log(log):
     #wafのログを一度読み込んで追記
     try:
@@ -69,4 +122,7 @@ def add_rule():
 
     return jsonify({"message": f"{len(rules)}個のルールを追加しました"})
 if __name__ == "__main__":
-    app.run(port=8000)  
+    with open("waf_scoring.json", "r", encoding="utf-8") as f:
+            scoring_rules = json.load(f) 
+    app.run(port=8000)
+    
