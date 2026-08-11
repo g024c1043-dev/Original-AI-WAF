@@ -2,35 +2,53 @@ import blue_cloud_ai
 import blue_local_ai
 import requests
 import json
+import sys
 
 def main():
     logs = distinct_log()
     waf_rules = waf_scoring()
-    a = input("WAFの通信ログを確認しますか？(y/n):")
-    if a in["Y","y","yes"]:
-        show_log()
-    b = input("通信ログから危険性のあるログを分析しますか？(y/n):")
-    if b in["Y","y","yes"]:
-        defence_analysis(logs)  
-    c = input("通信ログから防御ルールを生成しますか？(y/n):")
-    if c in["Y","y","yes"]:
-        gene_rules = gene_blockrule(logs,waf_rules)
-    else:
-        gene_rules = waf_rules
+    gene_rules = waf_rules  #防御ルールを生成しなかった場合のスコアリング調整用にもともとのwafのルールをgene_rulesへ格納する
+    updated_rules = waf_rules #生成・スコアリングをせずにWAFへのルールを送信した場合用のupdated_rulesの中身を定義
+    while True:
 
-    d = input("ルールのスコアリング調整を行いますか?(y/n):")
-    if d in["Y","y","yes"]:
-        scored_rules = scoring_rules(logs,gene_rules)
-        f = input("このスコアリングをルールへ適応しますか?(y/n):")
-        if f in["Y","y","yes"]:
-            updated_rules = update_rules(gene_rules,scored_rules)
-        else:
-            updated_rules = gene_rules
-    else:
-        updated_rules = gene_rules
+        print("1：WAF通信ログ参照\n"
+            "2：ログ分析 \n"
+            "3：防御ルール生成\n"
+            "4：防御ルールスコア調整\n"
+            "5：WAFへの変更ルール送信\n"
+            "6：処理の終了")
+        user_action = input("実施する機能番号を入力してください。")
+        match user_action:
+            case "1":
+                print("WAFの通信ログを確認します...")
+                show_log()
+            case "2":
+                print("ログの分析を開始します...")
+                analysis = defence_analysis(logs)  
+                print(analysis)
+            case "3":
+                print("防御ルールを生成します...")
+                gene_rules = gene_blockrule(logs,waf_rules)
+                updated_rules = gene_rules #スコアリングを行わない場合にupdated_rulesを生成したルールの中身に変更
+                print("生成された防御ルール",gene_rules)
+            case "4":
+                print("ルールのスコアリング調整を行います...")
+                scored_rules = scoring_rules(logs,gene_rules)
+                a = input("このスコアリングをルールへ適応しますか?(y/n):") #ここで防御ルールが初期の一つしかない状態でスコアリング行うとエラー
+                if a in["Y","y","yes"]:
+                    updated_rules = update_rules(gene_rules,scored_rules)
+            case "5":
+                dicted_rules = dict_rules(updated_rules) #防御ルールの生成、スコアリングを行わない場合に辞書型に変換しようとするとエラー
+                print("辞書変換後のルール",dicted_rules)
+            case "6":
+                print("処理を終了します...")
+                sys.exit(1)
+            case _:
+                print("エラーが起きました、処理を終了します...")
+                sys.exit(1)
 
-    dicted_rules = dict_rules(updated_rules)
     
+
 def distinct_log():
     success = []
     #WAFで記録されたログファイル読み込み
@@ -56,18 +74,14 @@ def defence_analysis(logs):
     print("通信ログの分析を開始します...")
     # ai_ans = blue_cloud_ai.analysis_log(logs) #クラウドAIモデル
     ai_ans = blue_local_ai.analysis_log(logs) #ローカルAIモデル
-    print(ai_ans)
+    return ai_ans
 
 def gene_blockrule(logs,waf_rules):
     # rules = blue_cloud_ai.generate_defense_rule(logs) #クラウドAIモデル
     gene_rules = blue_local_ai.generate_defense_rule(logs,waf_rules) #ローカルAIモデル
-    print("生成された防御ルール:",gene_rules)
 
     return gene_rules
-    # logs = distinct_log()
-    # waf_rules = waf_scoring()
-    # a = input("WAFの通信ログを確認しますか？(y/n):")
-    # if a in["Y","y","yes"]:
+  
         
 
     # #ログの分析
