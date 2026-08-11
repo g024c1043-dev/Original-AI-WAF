@@ -10,64 +10,64 @@ JUICE_SHOP = "http://localhost:3000"
 
 @app.route("/rest/user/login",methods=["POST"])
 def waf_req():
-    
+
     #JSON形式でattack.pyのリクエストを読み込み
     payload = request.get_json()
     #引数で渡されたペイロードからemailだけを摘出
     email = payload.get("email","")
     score = 0
+    #waf_scoringに記載されているルールと照合し、スコアを加算
     for rule in scoring_rules:
-        
         if re.search(rule["pattern"], email,re.IGNORECASE):
             score += rule["score"]
+
+    #スコア40以下の通信判定
     if score <= 40:
 
         response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload)
 
         if score <= 20:
-            recode = {
-                    "ペイロード":email,
-                    "スコア":score,
-                    "アラートレベル":"low-level",
-                    "WAF":"Allowed",
-                    "ステータスコード":response.status_code,
-            }
-            save_log(recode)
-                        
+            level = "low-level"
         else:
-            recode = {
-                    "ペイロード":email,
-                    "スコア":score,
-                    "アラートレベル":"medium-level",
-                    "WAF":"Allowed",
-                    "ステータスコード":response.status_code,
-            }
-            save_log(recode)
+            level = "medium-level"
 
+        recode = {
+                "ペイロード":email,
+                "スコア":score,
+                "アラートレベル":level,
+                "WAF":"Allowed",
+                "ステータスコード":response.status_code,
+        }
+        save_log(recode)
+        
         try:
             return jsonify(response.json()),response.status_code
-        except:
+        except Exception as e:
+            print(f"jsonエラー発生: {e}")
             return response.text,response.status_code
+    #スコア40以上の通信判定
     else:
         if score <= 80:
-            recode = {
-                    "ペイロード":email,
-                    "スコア":score,
-                    "アラートレベル":"high-level",
-                    "WAF":"Blocked",
-                    "ステータスコード":403,
-            }
-            save_log(recode)
+           level = "high-level"
         else:
-            recode = {
-                    "ペイロード":email,
-                    "スコア":score,
-                    "アラートレベル":"WARNING",
-                    "WAF":"blocked",
-                    "ステータスコード":403,
-            }
-            save_log(recode)
-        return jsonify({"error":"アクセス拒否"}),403
+            level = "WARNING"
+
+        recode = {
+                "ペイロード":email,
+                "スコア":score,
+                "アラートレベル":level,
+                "WAF":"blocked",
+                "ステータスコード":403,
+        }
+
+        save_log(recode)
+
+        try:
+            return jsonify({"error":"アクセス拒否"}),403
+        except Exception as e:
+            print(f"jsonエラー発生: {e}")
+            return response.text,response.status_code
+
     # #ペイロードの中にブロックルールに該当するメールがあるか確認
     # for rule in block_rule:
     #     if rule in email:
@@ -122,7 +122,8 @@ def add_rule():
 
     return jsonify({"message": f"{len(rules)}個のルールを追加しました"})
 if __name__ == "__main__":
+    #waf_scoring.jsonをscoing_rulesに読み込む
     with open("waf_scoring.json", "r", encoding="utf-8") as f:
-            scoring_rules = json.load(f) 
+        scoring_rules = json.load(f) 
     app.run(port=8000)
     

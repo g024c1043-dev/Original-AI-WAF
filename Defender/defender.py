@@ -3,6 +3,34 @@ import blue_local_ai
 import requests
 import json
 
+def main():
+    logs = distinct_log()
+    waf_rules = waf_scoring()
+    a = input("WAFの通信ログを確認しますか？(y/n):")
+    if a in["Y","y","yes"]:
+        show_log()
+    b = input("通信ログから危険性のあるログを分析しますか？(y/n):")
+    if b in["Y","y","yes"]:
+        defence_analysis(logs)  
+    c = input("通信ログから防御ルールを生成しますか？(y/n):")
+    if c in["Y","y","yes"]:
+        gene_rules = gene_blockrule(logs,waf_rules)
+    else:
+        gene_rules = waf_rules
+
+    d = input("ルールのスコアリング調整を行いますか?(y/n):")
+    if d in["Y","y","yes"]:
+        scored_rules = scoring_rules(logs,gene_rules)
+        f = input("このスコアリングをルールへ適応しますか?(y/n):")
+        if f in["Y","y","yes"]:
+            updated_rules = update_rules(gene_rules,scored_rules)
+        else:
+            updated_rules = gene_rules
+    else:
+        updated_rules = gene_rules
+
+    dicted_rules = dict_rules(updated_rules)
+    
 def distinct_log():
     success = []
     #WAFで記録されたログファイル読み込み
@@ -10,36 +38,97 @@ def distinct_log():
         log_data = json.load(f)
     #ステータスコード200のみのペイロードをリストへ
     for i in log_data:
-        if i["ステータスコード"] == 200:
-            success.append(i["ペイロード"])
+        success.append(i["ペイロード"])
     #重複文字列削除
-    success_dis =list(set(success))  
+    success_dis =list(dict.fromkeys(success))  
     return success_dis
-def gene_blockrule():
-    logs = distinct_log()
-    a = input("WAFの通信ログを確認しますか？(y/n):")
-    if a in["Y","y","yes"]:
-        print(json.load(open("./Defender/waf_logs.json",encoding="utf-8")))
-    b = input("通信ログから危険性のあるログを分析しますか？(y/n):")
-    if b in["Y","y","yes"]:
-        print("通信ログの分析を開始します...")
-        # ai_ans = blue_cloud_ai.analysis_log(logs) #クラウドAIモデル
-        ai_ans = blue_local_ai.analysis_log(logs) #ローカルAIモデル
-        print(ai_ans)
-    c = input("通信ログから防御ルールを生成しますか？(y/n):")
-    if c in["Y","y","yes"]:
-        # rules = blue_cloud_ai.generate_defense_rule(logs) #クラウドAIモデル
-        rules = blue_local_ai.generate_defense_rule(logs) #ローカルAIモデル
-        print("生成された防御ルール:",rules)
-        d = input("生成されたルールをWAFのブロックルールへ追加しますか?(y/n):")
-        if d in["Y","y","yes"]:
-            #wafへのブロックルール追加リクエスト
-            url = "http://localhost:8000/add_rule"
-            res = requests.post(
-                #json内のrulesというキーに生成されたルールを渡す
-                url,json={"rules":rules}
-            )
-            print("WAFの返答",res.json())
+
+def waf_scoring():
+    #waf_scoring.jsonを読み込む
+    with open("waf_scoring.json", "r", encoding="utf-8") as f:
+        scoring_rules = json.load(f) 
+    return scoring_rules
+
+def show_log():
+    print(json.load(open("./Defender/waf_logs.json",encoding="utf-8")))
+
+def defence_analysis(logs):
+    print("通信ログの分析を開始します...")
+    # ai_ans = blue_cloud_ai.analysis_log(logs) #クラウドAIモデル
+    ai_ans = blue_local_ai.analysis_log(logs) #ローカルAIモデル
+    print(ai_ans)
+
+def gene_blockrule(logs,waf_rules):
+    # rules = blue_cloud_ai.generate_defense_rule(logs) #クラウドAIモデル
+    gene_rules = blue_local_ai.generate_defense_rule(logs,waf_rules) #ローカルAIモデル
+    print("生成された防御ルール:",gene_rules)
+
+    return gene_rules
+    # logs = distinct_log()
+    # waf_rules = waf_scoring()
+    # a = input("WAFの通信ログを確認しますか？(y/n):")
+    # if a in["Y","y","yes"]:
+        
+
+    # #ログの分析
     
+    #     print("通信ログの分析を開始します...")
+    #     # ai_ans = blue_cloud_ai.analysis_log(logs) #クラウドAIモデル
+    #     ai_ans = blue_local_ai.analysis_log(logs) #ローカルAIモデル
+    #     print(ai_ans)
+
+    #防御ルールの生成
+    # c = input("通信ログから防御ルールを生成しますか？(y/n):")
+    # if c in["Y","y","yes"]:
+        
+        
+    # #防御ルールの生成を行わない場合、既存のルールを使用
+    # else:
+    #     gene_rules = waf_rules
+
+    # #防御ルールのスコアリング調整
+    # d = input("ルールのスコアリング調整を行いますか?(y/n):")
+    # if d in["Y","y","yes"]:
+    #     scoring_rules = blue_local_ai.scoring_defense_rule(logs,gene_rules) #ローカルAIモデル
+    #     print("スコアリング調整後のルール:",scoring_rules)
+
+    #     f = input("このスコアリングをルールへ適応しますか?(y/n):")
+    #     if f in["Y","y","yes"]:
+    #         #スコアリング調整後のルールを生成した防御ルールへ適応する処理
+    #         #genge_rulesは生成された防御ルール、scoring_rulesはスコアリング調整後のルール。
+    #         update_rule = blue_local_ai.update_rule(gene_rules,scoring_rules) #ローカルAIモデル
+    #     else:
+    #         update_rule = gene_rules
+    # else:
+    #     update_rule = gene_rules
+
+    # #pydanticモデルのオブジェクトで返されたルールを辞書に変更
+    
+
+    # #WAFへのルール追加、スコアの変更
+    # e = input("WAFへのルール追加、スコアの変更を行いますか？(y/n):")
+    # if e in["Y","y","yes"]:
+    #     #wafへのブロックルール追加リクエスト
+    #     url = "http://localhost:8000/add_rule"
+    #     res = requests.post(
+    #         #json内のrulesというキーに生成されたルールを渡す
+    #         url,json=update_rule
+    #     )
+    #     print("WAFの返答",res.json())
+def scoring_rules(logs,gene_rules):
+    scoring_rules = blue_local_ai.scoring_defense_rule(logs,gene_rules) #ローカルAIモデル
+    print("スコアリング対象の調整後のルール:",scoring_rules)
+    return scoring_rules
+
+def update_rules(gene_rules,scoring_rules):
+    #スコアリング調整後のルールを生成した防御ルールへ適応する処理
+    #genge_rulesは生成された防御ルール、scoring_rulesはスコアリング調整後のルール。
+    update_rule = blue_local_ai.update_rule(gene_rules,scoring_rules) #ローカルAIモデル
+    return update_rule
+
+def dict_rules(update_rule):
+    rules_dict = [rule.model_dump() for rule in update_rule]
+    print("WAFルール形式に変換後のルール一覧:",rules_dict)
+    return rules_dict
 if __name__ == "__main__":
-    gene_blockrule()
+    main()
