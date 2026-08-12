@@ -3,6 +3,90 @@
     "id": "0001",
     "pattern": "'",
     "score": 10,
-    "name":"single quote"
-    }
+    "name": "single quote"
+  },
+  {
+    "id": "0002",
+    "pattern": "\"",
+    "score": 10,
+    "name": "double quote"
+  },
+  {
+    "id": "0003",
+    "pattern": "--",
+    "score": 20,
+    "name": "SQL comment"
+  },
+  {
+    "id": "0004",
+    "pattern": "#",
+    "score": 20,
+    "name": "MySQL comment"
+  },
+  {
+    "id": "0005",
+    "pattern": "\\bor\\b",
+    "score": 20,
+    "name": "OR operator"
+  },
+  {
+    "id": "0006",
+    "pattern": "\\band\\b",
+    "score": 15,
+    "name": "AND operator"
+  },
+  {
+    "id": "0007",
+    "pattern": "\\bunion\\b",
+    "score": 30,
+    "name": "UNION keyword"
+  },
+  {
+    "id": "0008",
+    "pattern": "\\bselect\\b",
+    "score": 20,
+    "name": "SELECT keyword"
+  },
+  {
+    "id": "0009",
+    "pattern": "\\bsleep\\s*\\(",
+    "score": 40,
+    "name": "SLEEP function"
+  },
+  {
+    "id": "0010",
+    "pattern": "\\bbenchmark\\s*\\(",
+    "score": 40,
+    "name": "BENCHMARK function"
+  },
+  {
+    "id": "0011",
+    "pattern": "information_schema",
+    "score": 50,
+    "name": "Information schema access"
+  },
+  {
+    "id": "0012",
+    "pattern": "0x[0-9a-fA-F]+",
+    "score": 20,
+    "name": "Hex encoded value"
+  },
+  {
+    "id": "0013",
+    "pattern": "%27|%22",
+    "score": 10,
+    "name": "URL encoded quote"
+  },
+  {
+    "id": "0014",
+    "pattern": "%2[dD]%2[dD]|%23",
+    "score": 20,
+    "name": "URL encoded SQL comment"
+  },
+  {
+    "id": "0015",
+    "pattern": "\\bwaitfor\\s+(time|delay)\\b",
+    "score": 40,
+    "name": "MSSQL delay expression"
+  }
 ]
