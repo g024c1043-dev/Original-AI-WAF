@@ -1,32 +1,32 @@
 [
     {
+        "ペイロード": "' OR EXISTS(SELECT * FROM products)--",
+        "WAF": "Blocked",
+        "ステータスコード": 403,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' OR NOT EXISTS(SELECT NULL FROM products) -- ",
+        "WAF": "Blocked",
+        "ステータスコード": 403,
+        "攻撃結果": false
+    },
+    {
         "ペイロード": "' OR '1'='1",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
+        "WAF": "Blocked",
+        "ステータスコード": 403,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' OR ''='",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
+        "ペイロード": "' OR 0=0",
+        "WAF": "Blocked",
+        "ステータスコード": 403,
         "攻撃結果": false
     },
     {
-        "ペイロード": "' OR '0x0a'='0x10",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
+        "ペイロード": "' OR (SELECT 1 FROM products WHERE 1=1 UNION SELECT 1 FROM information_schema.columns)--",
+        "WAF": "Blocked",
+        "ステータスコード": 403,
         "攻撃結果": false
-    },
-    {
-        "ペイロード": "' OR (SELECT 'true')--",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
-        "攻撃結果": false
-    },
-    {
-        "ペイロード": "' OR ((SELECT count(*) FROM users))--",
-        "WAF": "Allowed",
-        "ステータスコード": 200,
-        "攻撃結果": true
     }
 ]

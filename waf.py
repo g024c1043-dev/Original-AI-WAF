@@ -6,6 +6,10 @@ import re
 
 app = Flask(__name__)
 block_rule = []
+#waf_scoring.jsonをscoing_rulesに読み込む
+with open("waf_scoring.json", "r", encoding="utf-8") as f:
+    scoring_rules = json.load(f) 
+
 JUICE_SHOP = "http://localhost:3000"
 
 @app.route("/rest/user/login",methods=["POST"])
@@ -45,6 +49,7 @@ def waf_req():
         except Exception as e:
             print(f"jsonエラー発生: {e}")
             return response.text,response.status_code
+        
     #スコア40以上の通信判定
     else:
         if score <= 80:
@@ -112,18 +117,17 @@ def save_log(log):
 #ブロックルールを追加するための入口       
 @app.route("/add_rule",methods=["POST"])
 def add_rule():
-    data=request.get_json()     
+    global scoring_rules
+    scoring_rules =request.get_json()
+    
     #リクエストからとってきたJSONファイルからrulesというキーの値を取得
-    rules = data.get("rules",[])
-    #block_ruleに追加する
-    block_rule.extend(rules)
-    print(f"[WAF] ルールを追加: {rules}")
-    print(f"[WAF] 現在のルール: {block_rule}")
+    # rules = data.get("rules",[])
+    # #block_ruleに追加する
+    # block_rule.extend(rules)
+    # print(f"[WAF] ルールを追加: {rules}")
+    print(f"[WAF] 現在のルール: {scoring_rules}")
 
-    return jsonify({"message": f"{len(rules)}個のルールを追加しました"})
+    return jsonify({"message": f"{len(scoring_rules)}個のルールを追加・変更しました"})
 if __name__ == "__main__":
-    #waf_scoring.jsonをscoing_rulesに読み込む
-    with open("waf_scoring.json", "r", encoding="utf-8") as f:
-        scoring_rules = json.load(f) 
     app.run(port=8000)
     

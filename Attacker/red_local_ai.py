@@ -42,8 +42,10 @@ def payload_ganerate(logs):
             {
                     "role": "user",
                     "content": (
-                        "攻撃ログ\n"f"{logs}\nを読み取り"
-                        "Juice Shop のログインの email フィールドに使える SQLインジェクションのペイロードをJSON形式で5個生成してください。\n"
+                        "攻撃ログ\n"f"{logs}\nを読み取り通常のメールアドレスも複数含めて,"
+                        "ブロックルールを回避するJuice Shop のログインの email フィールドに使える SQLインジェクションのペイロードをJSON形式で10個生成してください"
+                        "すでにブロックされている攻撃は生成しないこと"
+                    
                         
                     )
             }

@@ -1,9 +1,10 @@
-import blue_cloud_ai
-import blue_local_ai
+# import blue_cloud_ai
+from Defender import blue_local_ai
+from .blue_local_ai import DefenseRule
 import requests
 import json
 import sys
-from blue_local_ai import DefenseRule
+
 
 def main():
     logs = distinct_log()
@@ -35,15 +36,15 @@ def main():
             case "4":
                 print("ルールのスコアリング調整を行います...")
                 scored_rules = scoring_rules(logs,gene_rules)
-                a = input("このスコアリングをルールへ適応しますか?(y/n):") #ここで防御ルールが初期の一つしかない状態でスコアリング行うとエラー
+                a = input("このスコアリングをルールへ適応しますか?(y/n):") #ここで防御ルールが初期の一つしかない状態でスコアリング行うとエラー ※解決済み
                 if a in["Y","y","yes"]:
                     updated_rules = update_rules(gene_rules,scored_rules)
             case "5":
-                dicted_rules = dict_rules(updated_rules) #防御ルールの生成、スコアリングを行わない場合に辞書型に変換しようとするとエラー
+                dicted_rules = dict_rules(updated_rules) #防御ルールの生成、スコアリングを行わない場合に辞書型に変換しようとするとエラー ※解決済み
                 print("辞書変換後のルール",dicted_rules)
             case "6":
                 print("処理を終了します...")
-                sys.exit(1)
+                break
             case _:
                 print("エラーが起きました、処理を終了します...")
                 sys.exit(1)
@@ -105,6 +106,12 @@ def dict_rules(update_rule):
         return update_rule
     else:
         rules_dict = [rule.model_dump() for rule in update_rule]
-        return rules_dict
+        
+        url = "http://localhost:8000/add_rule"
+        res = requests.post(url,json=rules_dict)
+
+        return print("WAFの返答:",res.json())
+
+    
 if __name__ == "__main__":
     main()

