@@ -12,14 +12,14 @@ def main():
     gene_rules = waf_rules  #防御ルールを生成しなかった場合のスコアリング調整用にもともとのwafのルールをgene_rulesへ格納する
     updated_rules = waf_rules #生成・スコアリングをせずにWAFへのルールを送信した場合用のupdated_rulesの中身を定義
     while True:
-
+        print("=====防御側操作=====")
         print("1：WAF通信ログ参照\n"
             "2：ログ分析 \n"
             "3：防御ルール生成\n"
             "4：防御ルールスコア調整\n"
             "5：WAFへの変更ルール送信\n"
             "6：処理の終了")
-        user_action = input("実施する機能番号を入力してください。")
+        user_action = input("実施する機能番号を入力してください:")
         match user_action:
             case "1":
                 print("WAFの通信ログを確認します...")

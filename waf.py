@@ -27,8 +27,11 @@ def waf_req():
 
     #スコア40以下の通信判定
     if score <= 40:
-
-        response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload)
+        headers = {
+                "Content-Type": "application/json",
+                "Accept": "application/json, text/plain, */*", 
+            }
+        response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload,headers=headers)
 
         if score <= 20:
             level = "low-level"
@@ -46,6 +49,7 @@ def waf_req():
         
         try:
             return jsonify(response.json()),response.status_code
+            
         except Exception as e:
             print(f"jsonエラー発生: {e}")
             return response.text,response.status_code
@@ -69,6 +73,7 @@ def waf_req():
 
         try:
             return jsonify({"error":"アクセス拒否"}),403
+        
         except Exception as e:
             print(f"jsonエラー発生: {e}")
             return response.text,response.status_code
@@ -110,10 +115,15 @@ def save_log(log):
     except:
         log_data = []
         
-    log_data.append(log)    
+    log_data.append(log)  
+
     with open("Defender/waf_logs.json", "w", encoding="utf-8") as f:
         json.dump(log_data, f, ensure_ascii=False, indent=4)
         
+#WAFの現在のルールを表示
+def show_logs():
+    print("現在のルール：",scoring_rules)       
+
 #ブロックルールを追加するための入口       
 @app.route("/add_rule",methods=["POST"])
 def add_rule():

