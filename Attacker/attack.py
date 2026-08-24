@@ -18,6 +18,15 @@ def main(same_payload):
     ai_reply = None
 
     while True:
+        print("1:ローカルAI\n"
+              "2:クラウドAI\n")
+        ai_model=input("使用するAIモデルを選択してください:")
+        if ai_model == "1" or "2":
+            break
+        else:
+            print("表示されている数値のみを入力してください...")
+    
+    while True:
         print("=====攻撃側操作=====")
         print("1：攻撃ペイロード生成\n"
               "2：生成したペイロードで攻撃\n"
@@ -30,14 +39,14 @@ def main(same_payload):
         
                 #logsの中身がない場合（攻撃を一度も行ってない場合は攻撃結果を参照せずゼロから攻撃を生成する
                 if logs == []:
-                    ai_reply = generate_payload(logs)
+                    ai_reply = generate_payload(logs,ai_model)
                     print(f"生成されたペイロード：{ai_reply}")
 
                 else:
                     b = input("攻撃結果ログが存在します：\n"
                               "ログ結果を使用し新しい攻撃ペイロードを生成しますか？(y/n):")
                     if b in["Y","y","yes"]:
-                        ai_reply = generate_payload(logs)
+                        ai_reply = generate_payload(logs,ai_model)
                         print(ai_reply)
             case "2":
                 c = input("※すでに攻撃済みの場合のみ※\n前回と同じ攻撃ペイロードを使用しますか？(y/n):")
@@ -74,11 +83,11 @@ def main(same_payload):
     #         token_p(user_token)
     #     else:
     #         print("処理を終了します")
-def generate_payload(logs):
+def generate_payload(logs,use_ai):
 
     #攻撃ペイロードを生成
     try:
-        ai_reply = red_local_ai.payload_ganerate(logs) #ローカルAI使用
+        ai_reply = red_local_ai.payload_ganerate(logs,use_ai) #ローカルAI使用
         # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
         return ai_reply
     except:
@@ -88,7 +97,7 @@ def generate_payload(logs):
         for i in range(3):
             try:
                 print(f"再試行中：{i+1}回目...")
-                ai_reply = red_local_ai.payload_ganerate(logs) #ローカルAI使用
+                ai_reply = red_local_ai.payload_ganerate(logs,use_ai) #ローカルAI使用
                 # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
                 return ai_reply
             except:

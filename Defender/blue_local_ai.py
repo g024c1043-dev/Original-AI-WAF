@@ -31,12 +31,22 @@ class Generate_Defense_Rules(BaseModel):
     rules: List[DefenseRule] = Field(description="既存のルールへのルール追加後のスコア一覧")
 
 def get_client():
-    client = OpenAI(
-        #lily-cybersecurityモデル
-        api_key="not_needed",
-        base_url="http://localhost:1234/v1",
-        timeout=120.0
-    )
+    #ローカルAPI
+    if use_local_ai:
+        client = OpenAI(
+            #lily-cybersecurityモデル
+            api_key="not_needed",
+            base_url="http://localhost:1234/v1",
+            timeout=120.0
+        )
+    #クラウドAPI
+    else:
+        client = OpenAI(
+             # GeminiのAPI
+            api_key=os.environ["Gemini_API_KEY"],
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            timeout=120.0
+        )
     return client
 
 #解説用AI関数

@@ -14,20 +14,39 @@ class AttackPayloads(BaseModel):
 
     payloads: List[str] = Field(description="SQLインジェクションの攻撃ペイロードのリスト")
 
-def payload_ganerate(logs):
-    #LM Stdudioと接続
-    attach_client = OpenAI(
-        # LM StudioのAPI
+def get_client(use_ai_model):
+    #ローカルAPI
+    if use_ai_model == "1":
+        client = OpenAI(
+            #lily-cybersecurityモデル
             api_key="not_needed",
             base_url="http://localhost:1234/v1",
-        timeout=30.0
-    )
+            timeout=120.0
+        )
+        model = "llama-3-whiterabbitneo-8b-v2.0"
+    #クラウドAPI
+    elif use_ai_model == "2":
+        client = OpenAI(
+             # GeminiのAPI
+            api_key=os.environ["Gemini_API_KEY"],
+            base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
+            timeout=120.0
+        )
+        model = "gemini-3.5-flash"
+    else:
+        print("クライアント取得に失敗しました...")
+
+    return client,model
+
+def payload_ganerate(logs,use_ai):
+
+    attach_client,attach_model = get_client(use_ai)
     #OpenAIライブラリを構造化データ(JSON)モードに設定。普通のJSONモードでは対応していなかったためMD_JSONモードを使用
     client = instructor.from_openai(client=attach_client,mode=instructor.Mode.MD_JSON)
     #使用AIモデルとAIへの指示
     response = client.chat.completions.create(
 
-        model = "llama-3-whiterabbitneo-8b-v2.0",
+        model = attach_model,
         #使用するクラスの指定
         response_model=AttackPayloads,
         messages=[
@@ -53,17 +72,6 @@ def payload_ganerate(logs):
     )
 
     return response.payloads
-    
-    # if not ai_reply:
-    #     print("AIが解答できなかっためシステムを中止します:Error Empty Value")
-    #     sys.exit(1)
-    # try:
-    #      reply_json = json.loads(ai_reply)
-    # except json.JSONDecodeError:
-    #     print("AIが解答できなかったためシステムを中止します:Error JSONDecodeError")
-    #     sys.exit(1)
-    # return reply_json
-    # return ai_reply
 
 if __name__ == "__main__":
     with open("./Attacker/attack_logs.json","r",encoding="utf-8") as f:
