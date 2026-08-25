@@ -78,35 +78,6 @@ def waf_req():
             print(f"jsonエラー発生: {e}")
             return response.text,response.status_code
 
-    # #ペイロードの中にブロックルールに該当するメールがあるか確認
-    # for rule in block_rule:
-    #     if rule in email:
-    #         print(f"[WAF]Block:(ルール{rule})")
-    #         #ブロックされたペイロードも記録
-    #         recode = {
-    #             "ペイロード":email,
-    #             "WAF":"Blocked",
-    #             "ステータスコード":403,
-    #         }
-    #         save_log(recode)
-    #         return jsonify({"error":"アクセス拒否"}),403
-        
-    # #WAFがブロックしなかったら通す
-    # print("[WAF]Allowed")
-    # #リクエスト転送
-    # response = requests.post(f"{JUICE_SHOP}/rest/user/login",json=payload)
-    # # 防御用ログファイルに書き込み
-    # recode = {
-    #     "ペイロード":email,
-    #     "WAF":"Allowed",
-    #     "ステータスコード":response.status_code,
-    # }
-    # save_log(recode)
-    # #JuiceShopから帰ってきたレスポンスをflaskがわかる形式にしてHTTPレスポンスとして組み立て、クライアントに返す
-    # try:
-    #     return jsonify(response.json()),response.status_code
-    # except:
-    #     return response.text,response.status_code
 def save_log(log):
     #wafのログを一度読み込んで追記
     try:
@@ -119,7 +90,7 @@ def save_log(log):
 
     with open("Defender/waf_logs.json", "w", encoding="utf-8") as f:
         json.dump(log_data, f, ensure_ascii=False, indent=4)
-        
+
 #WAFの現在のルールを表示
 def show_logs():
     print("現在のルール：",scoring_rules)       

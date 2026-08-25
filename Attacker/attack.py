@@ -3,29 +3,16 @@ import json
 import sys
 from Attacker import red_cloud_ai
 from Attacker import red_local_ai 
+from choice_ai import choice_ai_model
 
 #メイン関数(引数same_payloadは過去に生成したペイロードを使用して攻撃する場合に使用する)
 def main(same_payload):
-
-    with open("./Attacker/attack_logs.json","r",encoding="utf-8") as f:
-        log_data = json.load(f)
-
-        if not log_data:
-            logs = []
-        else:
-            logs = json.dumps(log_data,ensure_ascii=False,indent=2)
-    
+    #ログファイル読み込み
+    logs = load_logs()
+    #攻撃を生成せずにcase2を実行する場合の定義
     ai_reply = None
-
-    while True:
-        print("1:ローカルAI\n"
-              "2:クラウドAI\n")
-        ai_model=input("使用するAIモデルを選択してください:")
-        if ai_model == "1" or "2":
-            break
-        else:
-            print("表示されている数値のみを入力してください...")
-    
+    #モデルを選択
+    ai_model = choice_ai_model()
     while True:
         print("=====攻撃側操作=====")
         print("1：攻撃ペイロード生成\n"
@@ -74,15 +61,19 @@ def main(same_payload):
             case _:
                 print("エラーが起きました、処理を終了します...")
                 sys.exit(1)
-        
-    # user_token,logs = attack_p(*payload) #payloadは複数の戻り値があるので*を使用
-    # print("現在のWAF防御率は:",defence_rate(logs))
-    # if user_token:
-    #     a = input("ユーザー情報を取得しますか？[Y or N]:")
-    #     if a in["Y","y","yes"]:
-    #         token_p(user_token)
-    #     else:
-    #         print("処理を終了します")
+
+def load_logs():
+
+    with open("./Attacker/attack_logs.json","r",encoding="utf-8") as f:
+            log_data = json.load(f)
+    
+            if not log_data:
+                logs = []
+            else:
+                logs = json.dumps(log_data,ensure_ascii=False,indent=2)
+
+    return logs
+
 def generate_payload(logs,use_ai):
 
     #攻撃ペイロードを生成
@@ -91,7 +82,7 @@ def generate_payload(logs,use_ai):
         # ai_reply = red_cloud_ai.payload_ganerate(logs) #クラウドAI使用
         return ai_reply
     except:
-        print("--攻撃分生成時にエラーが発生--")
+        print("--攻撃文生成時にエラーが発生--")
 
         #攻撃ペイロードを生成するのに失敗した場合3回までリトライする処理
         for i in range(3):

