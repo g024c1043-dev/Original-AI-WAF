@@ -92,14 +92,15 @@ def save_log(log):
         json.dump(log_data, f, ensure_ascii=False, indent=4)
 
 #WAFの現在のルールを表示
+@app.route("/show_rules",methods=["GET"])
 def show_logs():
-    print("現在のルール：",scoring_rules)       
+    return jsonify(scoring_rules)       
 
 #ブロックルールを追加するための入口       
 @app.route("/add_rule",methods=["POST"])
 def add_rule():
     global scoring_rules
-    scoring_rules =request.get_json()
+    scoring_rules = request.get_json()
     
     #リクエストからとってきたJSONファイルからrulesというキーの値を取得
     # rules = data.get("rules",[])

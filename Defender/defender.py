@@ -44,7 +44,7 @@ def main():
                 if a in["Y","y","yes"]:
                     updated_rules = update_rules(gene_rules,scored_rules)
             case "5":
-                dicted_rules = dict_rules(updated_rules) #防御ルールの生成、スコアリングを行わない場合に辞書型に変換しようとするとエラー ※解決済み
+                dicted_rules = attach_rules(updated_rules) #防御ルールの生成、スコアリングを行わない場合に辞書型に変換しようとするとエラー ※解決済み
                 print("辞書変換後のルール",dicted_rules)
             case "6":
                 print("処理を終了します...")
@@ -104,7 +104,7 @@ def update_rules(gene_rules,scoring_rules):
     update_rule = blue_local_ai.update_rule(gene_rules,scoring_rules) #ローカルAIモデル
     return update_rule
 
-def dict_rules(update_rule):
+def attach_rules(update_rule):
     if isinstance(update_rule,dict):
         print("すでに辞書型です。")
         return update_rule
@@ -116,6 +116,5 @@ def dict_rules(update_rule):
 
         return print("WAFの返答:",res.json())
 
-    
 if __name__ == "__main__":
     main()
