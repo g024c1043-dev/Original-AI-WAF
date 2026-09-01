@@ -52,6 +52,10 @@ def attacker_loop(ai_model):
     logs = attack.load_logs()
     #攻撃生成
     attack_payloads = attack.generate_payload(logs,ai_model)
+    #生成に失敗した場合はこの周回の攻撃をスキップ（Noneのまま攻撃処理へ渡さない）
+    if not attack_payloads:
+        print("攻撃ペイロードの生成に失敗したため、この周回の攻撃をスキップします...")
+        return
     print(attack_payloads)
     #攻撃
     attack.payload_p(attack_payloads)

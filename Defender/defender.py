@@ -2,6 +2,7 @@
 from Defender import blue_local_ai
 from .blue_local_ai import DefenseRule
 from choice_ai import choice_ai_model
+from Defender import defence_rate
 import requests
 import json
 import sys
@@ -22,7 +23,9 @@ def main():
             "3：防御ルール生成\n"
             "4：防御ルールスコア調整\n"
             "5：WAFへの変更ルール送信\n"
-            "6：処理の終了")
+            "6：現在のwafルール確認\n"
+            "7：防御率計算\n"
+            "8：処理の終了")
         user_action = input("実施する機能番号を入力してください:")
         match user_action:
             case "1":
@@ -47,6 +50,12 @@ def main():
                 dicted_rules = attach_rules(updated_rules) #防御ルールの生成、スコアリングを行わない場合に辞書型に変換しようとするとエラー ※解決済み
                 print("辞書変換後のルール",dicted_rules)
             case "6":
+                res = show_waf_rules()
+                print(res)
+            case "7":
+                print(defence_rate.defence_rate())
+            case "8":
+
                 print("処理を終了します...")
                 break
             case _:
@@ -60,22 +69,24 @@ def distinct_log():
         log_data = json.load(f)
     
     for i in log_data:
-        success.append(i["ペイロード"])
+        success.append(i["payloads"])
     #重複文字列削除
     success_dis =list(dict.fromkeys(success))  
     return success_dis
 
 def waf_score():
-    #waf_scoring.jsonを読み込む
-    with open("waf_scoring.json", "r", encoding="utf-8") as f:
-        scoring_rules = json.load(f) 
-
-    #json形式でルールを読み込んだ場合update_rules関数でエラーが起きるため、ルールを読み込んだ時点でPydanic形式に変換
-    scoring_rules = [
-        DefenseRule(**rule)
-        for rule in scoring_rules
-    ]
-
+    try:
+        scoring_rules = requests.get("http://localhost:8000/show_rules")
+        scoring_rules = scoring_rules.json()
+        #json形式でルールを読み込んだ場合update_rules関数でエラーが起きるため、ルールを読み込んだ時点でPydanic形式に変換
+        scoring_rules = [
+            DefenseRule(**rule)
+            for rule in scoring_rules
+        ]
+    except Exception as e:
+        print(f"WAFからのルールが取得できなかったため処理を終了します...{e}")
+        return sys.exit()
+    
     return scoring_rules
 
 def show_log():
@@ -103,18 +114,18 @@ def update_rules(gene_rules,scoring_rules):
     #genge_rulesは生成された防御ルール、scoring_rulesはスコアリング調整後のルール。
     update_rule = blue_local_ai.update_rule(gene_rules,scoring_rules) #ローカルAIモデル
     return update_rule
-
+def show_waf_rules():
+    res = requests.get("http://localhost:8000/show_rules")
+    return res.json()
 def attach_rules(update_rule):
-    if isinstance(update_rule,dict):
-        print("すでに辞書型です。")
-        return update_rule
-    else:
-        rules_dict = [rule.model_dump() for rule in update_rule]
-        
-        url = "http://localhost:8000/add_rule"
-        res = requests.post(url,json=rules_dict)
+    url = "http://localhost:8000/add_rule"
 
+    try :
+        res = requests.post(url,json=update_rule)
         return print("WAFの返答:",res.json())
+    except Exception as e:
+        print(f"ルール適応に失敗：やり直してください{e}")
+        return None
 
 if __name__ == "__main__":
     main()

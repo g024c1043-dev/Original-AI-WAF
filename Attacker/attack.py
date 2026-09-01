@@ -110,6 +110,14 @@ def payload_p(ai_reply):
         "user_123@mail.net",
     ]
 
+    #生成に失敗(None)、または生成物がリストでない場合は空リスト扱いにして落ちないようにする
+    if not isinstance(ai_reply, list):
+        if ai_reply is not None:
+            print(f"生成ペイロードの形式が不正です（{type(ai_reply).__name__}）。正常メールのみで実行します...")
+        else:
+            print("生成された攻撃ペイロードが存在しません。正常メールのみで実行します...")
+        ai_reply = []
+
     print(f"生成したペイロード:{ai_reply + nomal_emails}")
     #email_payloadsに生成したメールアドレスを入れるパスワードはaaa固定
     email_payloads = ai_reply + nomal_emails
@@ -202,11 +210,7 @@ def token_p(token):
     print("ステータスコード:",rsa_auth.status_code)
     print("全ユーザー情報:", rsa_auth.json())
 
-#防御率計算
-def defence_rate(logs):
-    total = len(logs)
-    block = sum(1 for i in logs if i["WAF"] == "Blocked")
-    return block/total
+#防御率計算は Defender/defence_rate.py に一本化（重複実装を削除）
 
 if __name__ == "__main__":
     main()

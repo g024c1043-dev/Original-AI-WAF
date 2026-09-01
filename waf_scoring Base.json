@@ -88,5 +88,11 @@
     "pattern": "\\bwaitfor\\s+(time|delay)\\b",
     "score": 40,
     "name": "MSSQL delay expression"
+  },
+  {
+    "id": "0016",
+    "pattern": "/\\*",
+    "score": 20,
+    "name": "C-style comment open"
   }
 ]
